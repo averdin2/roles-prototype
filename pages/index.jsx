@@ -1,6 +1,4 @@
 import Head from 'next/head';
-import Image from 'next/image';
-import styles from '../styles/Home.module.css';
 
 import { connectToDatabase } from '../util/mongodb';
 
@@ -22,11 +20,7 @@ export default function Home() {
 export async function getServerSideProps(context) {
   const { db } = await connectToDatabase();
 
-  const data = await db
-    .collection('listingsAndReviews')
-    .find({})
-    .limit(10)
-    .toArray();
+  const data = await db.collection('listingsAndReviews').find({}).limit(10).toArray();
 
   const properties = JSON.parse(JSON.stringify(data));
 
