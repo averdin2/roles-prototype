@@ -1,4 +1,3 @@
-import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import projectImage from '../../public/images/civic-tech-index.png';

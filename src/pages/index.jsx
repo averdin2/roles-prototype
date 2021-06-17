@@ -1,5 +1,6 @@
 import Head from 'next/head';
-import HomeCard from '../components/homeCard';
+import HomeCard from '../components/HomeCard';
+import FilterCard from '../components/FilterCard';
 
 import { connectToDatabase } from '../util/mongodb';
 
@@ -14,6 +15,7 @@ export default function Home() {
       <div className="container sm px-4 bg-gray-400">
         <p>Hello There</p>
       </div>
+      <FilterCard />
       <HomeCard />
     </div>
   );
