@@ -9,6 +9,10 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
+body {
+  background-color: rgba(243, 244, 246, var(--tw-bg-opacity));
+}
+
 a {
   color: inherit;
   text-decoration: none;

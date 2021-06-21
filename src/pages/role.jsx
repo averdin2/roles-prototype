@@ -4,7 +4,7 @@ import projectImage from '../../public/images/civic-tech-index.png';
 
 export default function role() {
   return (
-    <div className="bg-gray-100 h-screen">
+    <div>
       {/* container for top section */}
       <div className="flex flex-row w-full p-8 justify-between bg-white">
         {/* container for left top section */}
