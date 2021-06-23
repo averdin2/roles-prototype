@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import projectImage from '../../public/images/civic-tech-index.png';
 
-export default function HomeCard() {
+export default function HomeCard(props) {
   return (
     // Overall container div
     <div className="flex flex-col max-w-2xl rounded-2xl border-2 border-gray-100 shadow-md bg-white">
@@ -14,32 +14,33 @@ export default function HomeCard() {
           </div>
           {/* div for posted, name, and project */}
           <div>
-            <p className="text-gray-500 text-sm">Posted 3/17/21</p>
-            <h3 className="font-bold">UX Program Design Mangager</h3>
-            <p className="text-gray-500 text-sm font-bold">Civic Tech Index</p>
+            <p className="text-gray-500 text-sm">{props.datePosted}</p>
+            <h3 className="font-bold">{props.roleName}</h3>
+            <p className="text-gray-500 text-sm font-bold">{props.projectName}</p>
           </div>
           {/* div for meeting times */}
           <div>
             <p className="text-gray-500 text-sm">Meeting Times:</p>
-            <p className="text-sm">Wed 12:30-1:30pm - Designers</p>
-            <p className="text-sm">Thu 6:00-7:00pm - Full Team</p>
+            <p className="text-sm">{props.meetingTimes}</p>
           </div>
         </div>
         {/* div for role description, and other items */}
         <div className="mt-8 self-center">
           <p>
-            <strong>Role Description: </strong>Modeling various pilot programs and creating UX feedback process for users.
+            <strong>Role Description: </strong>
+            {props.description}
           </p>
           <p>
-            <strong>Responsibilities & Requirements: </strong>Modeling various pilot programs and creating UX feedback. - Modeling various pilot programs for users. - Modeling various pilot programs for users. - Modeling various pilot programs for
-            users.
+            <strong>Responsibilities & Requirements: </strong>
+            {props.responsibilities}
           </p>
           <p>
-            <strong>About the Project: </strong>Modeling various pilot programs and creating UX feedback process for users.
+            <strong>About the Project: </strong>
+            {props.about}
           </p>
         </div>
         {/* div for see full description button */}
-        <Link href="/role">
+        <Link href={`/roles/${props.id}`}>
           <a className="w-48 mt-8 rounded-full bg-red-500">
             <p className="p-2 text-center text-sm text-white font-bold">See Full Description</p>
           </a>

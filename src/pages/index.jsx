@@ -4,7 +4,8 @@ import FilterCard from '../components/FilterCard';
 
 import { connectToDatabase } from '../util/mongodb';
 
-export default function Home() {
+export default function Home({ properties }) {
+  // console.log(properties[0]);
   return (
     <div>
       <Head>
@@ -17,7 +18,23 @@ export default function Home() {
           <FilterCard />
         </div>
         <div>
-          <HomeCard />
+          {properties &&
+            properties.map((property) => (
+              <div className="mb-8">
+                <HomeCard
+                  id={property._id}
+                  roleName={property.role_name}
+                  projectName={property.project_name}
+                  datePosted={property.date_posted}
+                  description={property.description}
+                  meetingTimes={property.meeting_times}
+                  directions={property.directions}
+                  timeCommitment={property.time_commitment}
+                  about={property.about}
+                  responsibilities={property.responsibilities}
+                />
+              </div>
+            ))}
         </div>
       </div>
     </div>
@@ -27,9 +44,9 @@ export default function Home() {
 export async function getServerSideProps(context) {
   const { db } = await connectToDatabase();
 
-  const data = await db.collection('listingsAndReviews').find({}).limit(10).toArray();
+  const data = await db.collection('roles').find({}).limit(10).toArray();
 
-  const properties = JSON.parse(JSON.stringify(data));
+  const properties = await JSON.parse(JSON.stringify(data));
 
   return {
     props: { properties: properties },
