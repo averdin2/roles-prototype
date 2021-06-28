@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import HomeCard from '../components/HomeCard';
 import FilterCard from '../components/FilterCard';
+import Role from '../models/Role';
 
 import { connectToDatabase } from '../util/mongodb';
 
@@ -24,7 +25,7 @@ export default function Home({ properties }) {
                   id={property._id}
                   roleName={property.role_name}
                   projectName={property.project_name}
-                  datePosted={property.date_posted}
+                  datePosted={property.createdAt}
                   description={property.description}
                   meetingTimes={property.meeting_times}
                   directions={property.directions}
@@ -41,9 +42,9 @@ export default function Home({ properties }) {
 }
 
 export async function getServerSideProps(context) {
-  const { db } = await connectToDatabase();
+  await connectToDatabase();
 
-  const data = await db.collection('roles').find({}).limit(10).toArray();
+  const data = await Role.find({});
 
   const properties = await JSON.parse(JSON.stringify(data));
 

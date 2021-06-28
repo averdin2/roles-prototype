@@ -3,6 +3,7 @@ import Image from 'next/image';
 import projectImage from '../../../public/images/civic-tech-index.png';
 import RolesCard from '../../components/RolesCard';
 
+import Role from '../../models/Role';
 import { connectToDatabase } from '../../util/mongodb';
 
 let ObjectId = require('mongodb').ObjectId;
@@ -31,7 +32,7 @@ export default function role({ properties }) {
         <div className="border-l-2 border-gray-200 h-64"></div>
         {/* container for right top section */}
         <div className="mt-4">
-          <p className="text-gray-500 text-sm">Posted: {properties.date_posted}</p>
+          <p className="text-gray-500 text-sm">Posted: {properties.createdAt}</p>
           <h1 className="font-bold text-2xl mt-4 mb-8">{properties.role_name}</h1>
           <p>
             <strong>Project: </strong>
@@ -42,7 +43,8 @@ export default function role({ properties }) {
             {properties.time_commitment}
           </p>
           <p>
-            <strong>Positions: </strong>Need 2-3 volunteers
+            <strong>Positions: </strong>
+            {properties.positions}
           </p>
         </div>
       </div>
@@ -52,7 +54,7 @@ export default function role({ properties }) {
           id={properties._id}
           roleName={properties.role_name}
           projectName={properties.project_name}
-          datePosted={properties.date_posted}
+          datePosted={properties.createdAt}
           description={properties.description}
           meetingTimes={properties.meeting_times}
           directions={properties.directions}
@@ -66,9 +68,9 @@ export default function role({ properties }) {
 }
 
 export async function getServerSideProps(context) {
-  const { db } = await connectToDatabase();
+  await connectToDatabase();
 
-  const data = await db.collection('roles').findOne({ _id: ObjectId(`${context.params.id}`) });
+  const data = await Role.findById(ObjectId(`${context.params.id}`));
 
   const properties = await JSON.parse(JSON.stringify(data));
 
